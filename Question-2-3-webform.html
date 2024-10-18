@@ -123,18 +123,27 @@
         };
       
         $(document).ready(function () {
-          if ($.urlParam('validate')) {
-            validateInput('name', 'Please enter your name!');
-            validateInput('biography', 'Please tell us something about your history!');
-            validateInput('gender', 'Please tell us your gender!');
-            validateInput('accept_agbs', 'You must accept our terms and conditions!');
-      
-            if ($('.error').length === 0) {
-              return alert('All inputs are valid.');
-            }
-          }
-        });
-      }).call(void 0);</script>
+  $('form').on('submit', function (event) {
+    event.preventDefault(); // Prevent form submission for validation
+
+    // Remove any existing error fieldset
+    $('fieldset.errors').remove();
+
+    // Validate inputs
+    validateInput('name', 'Please enter your name!');
+    validateInput('biography', 'Please tell us something about your history!');
+    validateInput('gender', 'Please tell us your gender!');
+    validateInput('accept_agbs', 'You must accept our terms and conditions!');
+
+    // If no errors, show success message
+    if ($('fieldset.errors').length === 0) {
+      // Append a success message with aria-live for screen reader notification
+      $('form').append('<div id="successMessage" role="alert" aria-live="assertive" style="color:green;">All inputs are valid.</div>');
+      alert('All inputs are valid.');
+    }
+  });
+});
+call(void 0);</script>
                 
         </body>
       </html>
